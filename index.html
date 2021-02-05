@@ -233,13 +233,27 @@ Ethereum as origin
 
 --
 
+1. FT on Ethereum to bridged FT on NEAR
+--
+
+2. Bridged FT on NEAR back to natural FT on Ethereum
+
+--
+
+NEAR as origin
+
+1. FT on NEAR to bridged FT on Ethereum
+2. Bridged FT on Ethereum back to natural FT on NEAR
+
+
+---
+
+# 2 chains, 4 directions
+
+Ethereum as origin
+
 1. *natural ERC20* to NEP21
---
-
 2. *bridged NEP21* to ERC20
-
---
-
 
 NEAR as origin
 
@@ -308,10 +322,10 @@ Or maybe we use an alternative naming scheme, to make it easy to tell which libr
 
 ```js
 "dependencies": {
-  "rainbow-bridge/client": "*",
-  "rainbow-bridge/erc20-and-nep21": "*",
-  "rainbow-bridge/erc20-and-nep141": "*",
-  "rainbow-bridge/erc721-and-nep4": "*",
+  "@rainbow-bridge/client": "*",
+  "@rainbow-bridge/erc20-and-nep21": "*",
+  "@rainbow-bridge/erc20-and-nep141": "*",
+  "@rainbow-bridge/erc721-and-nep4": "*",
   "rainbow-bridge-erc20-with-rebase-and-nep21": "*",
 }
 ```
@@ -326,10 +340,10 @@ GitHub org *`rainbow-bridge`* not available :(
 
 ```js
 "dependencies": {
-  "eth+near/client": "*",
-  "eth+near/erc20+nep21": "*",
-  "eth+near/erc20+nep141": "*",
-  "eth+near/erc721+nep4": "*",
+  "@eth+near/client": "*",
+  "@eth+near/erc20+nep21": "*",
+  "@eth+near/erc20+nep141": "*",
+  "@eth+near/erc721+nep4": "*",
   "rainbow-bridge-erc20-with-rebase-and-nep21": "*",
 }
 ```
@@ -389,7 +403,11 @@ import { naturalErc20ToNep21 } from '@eth-near/erc20-nep21'
 
 document.querySelector('form').onsubmit = e => {
   e.preventDefault()
-  const { erc20Address, amount, sender, recipient } = e.target.elements
+
+  const {
+    erc20Address, amount, sender, recipient
+  } = e.target.elements
+
   naturalErc20ToNep21({
     erc20Address: erc20Address.value,
     amount: amount.value,
@@ -442,6 +460,7 @@ import { get } from '@eth-near/client'
 
 function renderTransfers () {
   const transfers = get({ filter: { status: 'in-progress' } })
+
   document.querySelector('#transfers-go-here').innerHTML =
     transfers.map(renderTransfer).join('')
 }
@@ -458,6 +477,7 @@ import { decorate } from '@eth-near/client'
 
 function renderTransfer (transfer) {
   transfer = decorate(transfer, { locale: 'en_US' })
+
   return `
     <li class="transfer" id="${transfer.id}">
       ${transfer.amount}
@@ -483,6 +503,7 @@ import { act } from '@eth-near/client'
 
 document.querySelector('body').addEventListener('click', e => {
   const callToAction = e.target.closest('.act-on-transfer')
+
   if (callToAction) {
     const transferId = callToAction.closest('.transfer').id
     act(transferId)
@@ -585,6 +606,7 @@ Read: [Introductory Blog Post](https://near.org/blog/eth-near-rainbow-bridge/)
 Try: [Rainbow Bridge UI](https://near.github.io/rainbow-bridge-frontend/)  
 Walk through: [Step by Step](https://github.com/djsatok/bridge-testing)  
 Contribute: [Primordial `@eth-near/client`](https://github.com/near/rainbow-bridge-frontend/tree/master/src/js/transfers)
+Learn: [near.org/learn](https://near.org/learn)
 
 ---
 
