@@ -51,7 +51,7 @@
       }
       .remark-slide-content {
         background-size: contain;
-        font-size: calc(.85em + 2vw);
+        font-size: calc(16px + 2vmin);
         padding: 1rem 4rem;
       }
       .remark-slide-content h1 {
@@ -78,16 +78,13 @@
         display: none;
       }
       .small {
-        font-size: calc(.85em + 1.5vw);
-      }
-      .cramped {
-        letter-spacing: -0.13em;
+        font-size: calc(16px + 1vmin);
       }
       code {
         font-family: "Source Code Pro",monospace;
       }
       .remark-code {
-        font-size: 0.5em;
+        font-size: 0.6em;
       }
       @media screen {
         body, body.remark-container {
@@ -108,7 +105,9 @@
 
 class: small
 
-# Ethereum & NEAR, sitting in a tree, **B U I DL I N G**
+# Ethereum & NEAR, sitting in a tree,
+
+# **B. U. I. DL. I. N. G.**
 
 How to use the slides:
 
@@ -126,12 +125,10 @@ Also, [here's the source](https://github.com/chadoh/rainbow-bridge-talk)
 
 Help us put some finishing touches on our Rainbow Bridge client library
 
-<br />
-<small>*@chadoh* • *chadoh.near* • *near.org*</small>
-
-???
-
-Demo of near.github.io/rainbow-bridge-frontend
+<small>
+  *@chadoh* • *chadoh.near* • *near.org*  
+  These slides: [chadoh.com/rainbow-bridge-talk](https://chadoh.com/rainbow-bridge-talk)  
+</small>
 
 ---
 
@@ -144,6 +141,12 @@ Demo of near.github.io/rainbow-bridge-frontend
 3. Key concepts
 4. Four easy steps!
 5. What's missing?
+
+???
+
+While this slide is up, demo https://near.github.io/rainbow-bridge-frontend
+
+For instructions on how to use this app, see Appendix A at the end of this slide deck
 
 ---
 
@@ -222,7 +225,7 @@ Like a Fungible Token connector to go from ERC20 to NEP21 *and back again*
 
 ---
 
-# *2* chains, *4* directions
+# 2 chains, 4 directions
 
 --
 
@@ -249,7 +252,7 @@ NEAR as origin
 
 ---
 
-# *2* chains, *4* directions
+# 2 chains, 4 directions
 
 Ethereum as origin
 
@@ -507,6 +510,30 @@ onChange(renderTransfers)
 
 ---
 
+# All together
+
+```js
+import {
+  act, checkStatusAll, decorate, get, onChange
+} from '@eth-near/client'
+import { naturalErc20ToNep21 } from '@eth-near/erc20-nep21'
+
+// initiate
+form.onsubmit = e => naturalErc20ToNep21({ ... })
+
+// render
+function renderTransfers () { get(); ... }
+function renderTransfer (transfer) { decorate(transfer); ... }
+button.onclick = e => act(...)
+renderTransfers()
+
+// check in
+checkStatusAll({ loop: 15000 })
+onChange(renderTransfers)
+```
+
+---
+
 # What's missing?
 
 --
@@ -525,6 +552,10 @@ onChange(renderTransfers)
 
 * test, sand, polish
 
+--
+
+*ETA:* March?
+
 ---
 
 # Ethereum & NEAR, sitting in a tree,
@@ -541,11 +572,31 @@ onChange(renderTransfers)
 
 # **MOAR**
 
+These slides: [chadoh.com/rainbow-bridge-talk](https://chadoh.com/rainbow-bridge-talk)  
 Get notified: [Subscribe](#TODO)  
 Read: [Introductory Blog Post](https://near.org/blog/eth-near-rainbow-bridge/)  
 Try: [Rainbow Bridge UI](https://near.github.io/rainbow-bridge-frontend/)  
 Walk through: [Step by Step](https://github.com/djsatok/bridge-testing)  
 Contribute: [Primordial `@eth-near/client`](https://github.com/near/rainbow-bridge-frontend/tree/master/src/js/transfers)
+
+---
+
+class: small
+
+*Appendix A:* Using the Ropsten↔Testnet Bridge UI
+
+# Using the [Testnet Bridge](https://near.github.io/rainbow-bridge-frontend/)
+
+1. Install [MetaMask](https://metamask.io) or enable [Brave](https://brave.com/)'s Crypto Wallets
+2. In your crypto wallet, select the [Ropsten](https://docs.ethhub.io/using-ethereum/test-networks/) test network
+3. Get some Ropsten ETH from [a faucet](https://medium.com/2key/what-is-ropsten-eth-and-how-can-i-get-some-df7de95c7fa9)
+4. [Mint yourself TST tokens with `showMeTheMoney`](https://ropsten.etherscan.io/token/0x722dd3f80bac40c951b51bdd28dd19d435762180#writeContract)
+5. [Try it!](https://near.github.io/rainbow-bridge-frontend)
+
+This info will all be discoverable via the UI soon.
+
+<small><i>Note: If you start transfers, come back days or weeks later, then encounter strange errors – [delete your localStorage](https://www.howtogeek.com/664912/how-to-clear-storage-and-site-data-for-a-single-site-on-google-chrome/). While this is all test data and the tokens don't matter, this app will not guarantee backwards-compatible updates.</i></small>
+
 
     </textarea>
     <script src="remark-latest.min.js"></script>
