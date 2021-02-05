@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ethereum & NEAR, sitting in a tree, B. U. I. DL. I. N. G.</title>
+    <link rel="preconnect" href="https://rsms.me">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+        font-variant: slashed-zero;
+        line-height: 1.4;
+        --red: #FF585D;
+        --orange: #FFB259;
+        --yellow: #F0EC74;
+        --green: #00C08B;
+        --blue: #00C1DE;
+        --royal: #0072CE;
+        --purple: #627EEA;
+      }
+      ::selection {
+        background: var(--green);
+        color: white;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1.1;
+      }
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      a {
+        color: var(--blue);
+        text-decoration: none;
+        border-bottom: 1px solid var(--blue);
+      }
+      a:focus, a:hover {
+        color: var(--royal);
+      }
+      a:active {
+        color: var(--red);
+      }
+      kbd {
+        background: white;
+        color: black;
+        padding: 0 0.2em;
+        border-radius: 5px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5) inset;
+      }
+      .remark-slide-content {
+        background-size: contain;
+        font-size: calc(.85em + 2vw);
+        padding: 1rem 4rem;
+      }
+      .remark-slide-content h1 {
+        font-size: 2em;
+      }
+      .remark-slide-content h2 {
+        font-size: 1.5em;
+      }
+      .remark-slide-content strong {
+        color: white;
+        background: linear-gradient(to right, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .remark-slide-content em {
+        font-style: normal;
+        color: var(--green);
+      }
+      .remark-slide-content > *:first-child {
+        margin-top: 0;
+      }
+      .remark-slide-number {
+        font-size: 0.3em;
+        display: none;
+      }
+      .small {
+        font-size: calc(.85em + 1.5vw);
+      }
+      .cramped {
+        letter-spacing: -0.13em;
+      }
+      code {
+        font-family: "Source Code Pro",monospace;
+      }
+      .remark-code {
+        font-size: 0.5em;
+      }
+      @media screen {
+        body, body.remark-container {
+          background: black;
+          color: white;
+        }
+        .remark-slide-content {
+          background-color: black;
+        }
+        .remark-slide-scaler {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source" style="display:none">
+
+class: small
+
+# Ethereum & NEAR, sitting in a tree, **B U I DL I N G**
+
+How to use the slides:
+
+* &lt;kbd&gt;P&lt;/kbd&gt; toggle presenter notes
+* &lt;kbd&gt;?&lt;/kbd&gt; help menu
+* &lt;kbd&gt;&rarr;&lt;/kbd&gt; next slide
+
+Also, [here's the source](https://github.com/chadoh/rainbow-bridge-talk)
+
+---
+
+# Ethereum & NEAR, sitting in a tree,
+
+# **B. U. I. DL. I. N. G.**
+
+Help us put some finishing touches on our Rainbow Bridge client library
+
+<br />
+<small>*@chadoh* • *chadoh.near* • *near.org*</small>
+
+???
+
+Demo of near.github.io/rainbow-bridge-frontend
+
+---
+
+# If this were easy, what would you do with it?
+
+--
+
+* You could *use ERC20 tokens in NEAR*, where block times are fast and transaction fees are cheap.
+--
+
+* You could let users make NFTs in NEAR, then *send them to Ethereum* to list them in larger marketplaces.
+--
+
+* You could let users *balance liquidity* and *arbitrage* across markets on both chains.
+--
+
+* More!
+
+---
+
+# Four easy steps!
+
+--
+
+Let's do it!
+
+---
+
+# But first...
+
+--
+
+Some key concepts
+
+---
+
+# Clients
+
+--
+
+!["Light clients implemented within each blockchain as a smart contract, to track the other chain"](img/clients.png)
+
+---
+
+# Provers
+
+--
+
+!["Separate smart contracts can confirm or refute a given proof by checking against data in the relevant client"](img/provers.png)
+
+---
+
+# Connectors
+
+--
+
+Like a *Fungible Token* connector
+
+---
+
+# Connectors
+
+Like a Fungible Token connector to go from *ERC20* to *NEP21*
+
+---
+
+# Connectors
+
+Like a Fungible Token connector to go from ERC20 to NEP21 *and back again*
+
+---
+
+# Connectors
+
+!["Using a TokenLocker and MintableFungibleToken connector pair to send DAI from Ethereum to NEAR"](img/connectors.png)
+
+---
+
+# *2* chains, *4* directions
+
+--
+
+Ethereum as origin
+
+--
+
+1. *natural ERC20* to NEP21
+--
+
+2. *bridged NEP21* to ERC20
+
+--
+
+
+NEAR as origin
+
+3. *natural NEP21* to ERC20
+4. *bridged ERC20* to NEP21
+
+--
+
+[Do we like this notation?](#TODO)
+
+---
+
+# *2* chains, *4* directions
+
+Ethereum as origin
+
+1. natural ERC20 to NEP21: *DAI to DAIⁿ*
+2. bridged NEP21 to ERC20: *DAIⁿ to DAI*
+
+NEAR as origin
+
+3. natural NEP21 to ERC20: *BNNA to BNNAᵉ*
+4. bridged ERC20 to NEP21: *BNNAᵉ to BNNA*
+
+--
+
+[Do we like this notation?](#TODO)
+
+---
+
+# Four easy steps!
+
+Let's do it!
+
+---
+
+# Step 1: Dependencies
+
+--
+
+```js
+"dependencies": {
+  "rainbow-bridge-client": "*",
+  "rainbow-bridge-erc20-and-nep21": "*",
+  "rainbow-bridge-erc20-and-nep141": "*",
+  "rainbow-bridge-erc721-and-nep4": "*",
+  "rainbow-bridge-erc20-with-rebase-and-nep21": "*",
+}
+```
+
+???
+
+* Main client library designed to handle core logic around storing and progressing transfers
+* Connector-specific libraries can be created by anyone and interop with the core client library permissionlessly
+* Might have standard-specific libraries as shown here or more general "fungible token" libraries
+
+Or maybe we use an alternative naming scheme, to make it easy to tell which libraries are maintained by the core Rainbow Bridge team. This would look like...
+
+---
+
+# Step 1: Dependencies
+
+```js
+"dependencies": {
+  "rainbow-bridge/client": "*",
+  "rainbow-bridge/erc20-and-nep21": "*",
+  "rainbow-bridge/erc20-and-nep141": "*",
+  "rainbow-bridge/erc721-and-nep4": "*",
+  "rainbow-bridge-erc20-with-rebase-and-nep21": "*",
+}
+```
+
+--
+
+GitHub org *`rainbow-bridge`* not available :(
+
+---
+
+# Step 1: Dependencies
+
+```js
+"dependencies": {
+  "eth+near/client": "*",
+  "eth+near/erc20+nep21": "*",
+  "eth+near/erc20+nep141": "*",
+  "eth+near/erc721+nep4": "*",
+  "rainbow-bridge-erc20-with-rebase-and-nep21": "*",
+}
+```
+
+--
+
+Can't have *`+`* in package name :(
+
+--
+
+[What should we call the org?](#TODO)
+
+???
+
+Options:
+
+* rainbow-bridge – No matching GitHub org? No problem.
+* eth~near – The tilde looks like a whimsical bridge!
+* eth-near – No it doesn't. Stop being cute.
+* eth-to-near – Does "to" imply the bridge is one-way?
+* eth-and-near
+* eth-with-near
+
+---
+
+# Step 1: Dependencies
+
+```bash
+yarn add @eth-near/client @eth-near/erc20-nep21
+```
+
+???
+
+Do cool kids still use yarn?
+
+---
+
+# Step 2: Initiate
+
+--
+
+```html
+<form>
+  <input id="erc20Address" />
+  <input id="amount" />
+  <input id="sender" />
+  <input id="recipient" />
+</form>
+```
+
+---
+
+# Step 2: Initiate
+
+```js
+import { naturalErc20ToNep21 } from '@eth-near/erc20-nep21'
+
+document.querySelector('form').onsubmit = e => {
+  e.preventDefault()
+  const { erc20Address, amount, sender, recipient } = e.target.elements
+  naturalErc20ToNep21({
+    erc20Address: erc20Address.value,
+    amount: amount.value,
+    sender: sender.value,
+    recipient: recipient.value,
+  })
+}
+```
+
+---
+
+## `@eth-near/erc20-nep21`
+
+--
+
+Four main exports:
+
+--
+1. `naturalErc20ToNep21`
+--
+
+2. `bridgedNep21ToErc20`
+--
+
+3. `naturalNep21ToErc20`
+4. `bridgedErc20ToNep21`
+
+---
+
+## `@eth-near/erc20-nep21`
+
+!["Each of these directions contains all its own logic about how to complete this kind of transfer, and can have different numbers of steps and logic around how to finalize"](img/direction-logics.png)
+
+---
+
+# Step 3: List
+
+--
+
+```html
+<ol id="transfers-go-here"></ol>
+```
+
+---
+
+# Step 3: List
+
+```js
+import { get } from '@eth-near/client'
+
+function renderTransfers () {
+  const transfers = get({ filter: { status: 'in-progress' } })
+  document.querySelector('#transfers-go-here').innerHTML =
+    transfers.map(renderTransfer).join('')
+}
+
+renderTransfers()
+```
+
+---
+
+# Step 3: List
+
+```js
+import { decorate } from '@eth-near/client'
+
+function renderTransfer (transfer) {
+  transfer = decorate(transfer, { locale: 'en_US' })
+  return `
+    <li class="transfer" id="${transfer.id}">
+      ${transfer.amount}
+      ${transfer.sourceTokenName} from
+      ${transfer.sender} to
+      ${transfer.recipient}
+      ${!transfer.callToAction ? '' : `
+        <button class="act-on-transfer">
+          ${transfer.callToAction}
+        </button>
+      `}
+    </li>
+  `
+})
+```
+
+---
+
+# Step 3: List
+
+```js
+import { act } from '@eth-near/client'
+
+document.querySelector('body').addEventListener('click', e => {
+  const callToAction = e.target.closest('.act-on-transfer')
+  if (callToAction) {
+    const transferId = callToAction.closest('.transfer').id
+    act(transferId)
+  }
+})
+```
+
+---
+
+# Step 4: Check in
+
+--
+
+```js
+import { checkStatusAll } from '@eth-near/client'
+
+checkStatusAll({ loop: 15000 })
+```
+
+---
+
+# Step 4: Check in
+
+```js
+import { onChange } from '@eth-near/client'
+
+onChange(renderTransfers)
+```
+
+---
+
+# **MOAR**
+
+Read: [Introductory Blog Post](https://near.org/blog/eth-near-rainbow-bridge/)  
+Try: [Rainbow Bridge UI](https://near.github.io/rainbow-bridge-frontend/)  
+Walk through: [Step by Step](https://github.com/djsatok/bridge-testing)  
+Contribute: [Primordial `@eth-near/client`](https://github.com/near/rainbow-bridge-frontend/tree/master/src/js/transfers)
+
+    </textarea>
+    <script src="remark-latest.min.js"></script>
+    <script>var slideshow = remark.create()</script>
+  </body>
+</html>
